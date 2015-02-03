@@ -19,33 +19,28 @@ public class Surface {
     };
     
     private float f(float x, float y) {
-        return 2;
+        return (float)(Math.cos(x) + Math.sin(y));
     }
     
     public void init() {
         
-//        int numPoints = 5;
-//        pointsArray = new float[numPoints * numPoints * 3];
-//        for (int x = 0; x < numPoints; x++) {
-//            for (int y = 0; y < numPoints; y++) {
-//                int index = (x * numPoints + y) * 3;
-//                pointsArray[index] = x;
-//                pointsArray[index + 1] = y;
-//                pointsArray[index + 2] = f(x, y);
-//            }
-//        }
-//        
-//        pointsArray = new float[] {
-//                0f, 0f, 1f,
-//                0f, 1f, 1f,
-//                0f, 2f, 1f,
-//                0f, 3f, 1f
-//        };
+        int numPoints = 200;
+        float d = 0.1f;
+        
+        pointsArray = new float[numPoints * numPoints * 3];
+        for (int x = 0; x < numPoints; x++) {
+            for (int y = 0; y < numPoints; y++) {
+                int index = (x * numPoints + y) * 3;
+                pointsArray[index] = x * d;
+                pointsArray[index + 1] = y * d;
+                pointsArray[index + 2] = f(x*d, y*d);
+            }
+        }
         
         //debug
-        for (int i = 0; i < pointsArray.length; i+=3) {
-            System.out.println("x: " + pointsArray[i] + ", y: " + pointsArray[i+1] + ", z: " + pointsArray[i+2]);
-        }
+//        for (int i = 0; i < pointsArray.length; i+=3) {
+//            System.out.println("x: " + pointsArray[i] + ", y: " + pointsArray[i+1] + ", z: " + pointsArray[i+2]);
+//        }
         
         glClearColor(0f, 0f, 0f, 0f);
         
@@ -62,22 +57,27 @@ public class Surface {
     
     public void draw() {
         glColor3f(1f, 1f, 1f);
-        glPushMatrix();
-//            glRotatef(85f, 1f, 1f, 1f);
-//            glEvalMesh2(GL_FILL, 0, 20, 0, 20);
-            glRotatef(85f, 1f, 1f, 1f);
-            for (int i = 0; i < 8; i++) {
-                glBegin(GL_LINE_STRIP);
-                    for (int j = 0; j <= 30; j++) {
-                        glEvalCoord2f((float)j/30.0f, (float)i/8.0f);
-                    }
-                glEnd();
-                glBegin(GL_LINE_STRIP);
-                    for (int j = 0; j <= 30; j++) {
-                        glEvalCoord2f((float)i/8.0f, (float)j/30.0f);
-                    }
-                glEnd();
+        glBegin(GL_POINTS);
+            for (int i = 0; i < pointsArray.length; i += 3) {
+                glVertex3f(pointsArray[i], pointsArray[i+1], pointsArray[i+2]);
             }
-        glPopMatrix();
+        glEnd();
+//        glPushMatrix();
+////            glRotatef(85f, 1f, 1f, 1f);
+////            glEvalMesh2(GL_FILL, 0, 20, 0, 20);
+//            glRotatef(85f, 1f, 1f, 1f);
+//            for (int i = 0; i < 8; i++) {
+//                glBegin(GL_LINE_STRIP);
+//                    for (int j = 0; j <= 30; j++) {
+//                        glEvalCoord2f((float)j/30.0f, (float)i/8.0f);
+//                    }
+//                glEnd();
+//                glBegin(GL_LINE_STRIP);
+//                    for (int j = 0; j <= 30; j++) {
+//                        glEvalCoord2f((float)i/8.0f, (float)j/30.0f);
+//                    }
+//                glEnd();
+//            }
+//        glPopMatrix();
     }
 }

@@ -44,13 +44,13 @@ public class GrapherDisplay {
         
         glMatrixMode(GL_PROJECTION);
         glLoadIdentity();
-        glOrtho(-5, 5, -5, 5, -5, 5);
+        glOrtho(-10, 10, -10, 10, -50, 50);
         glMatrixMode(GL_MODELVIEW);
         
 //        BezierCurve.init();
         surface.init();
         
-        Lights.init();
+//        Lights.init();
     }
     
     private void loop() {
@@ -58,20 +58,20 @@ public class GrapherDisplay {
             glLoadIdentity();
             
             //Keyboard
-            if (Keyboard.isKeyDown(Keyboard.KEY_UP)) {
-                y += .001f;
-            } else if (Keyboard.isKeyDown(Keyboard.KEY_DOWN)) {
-                y -= .001f;
+            if (Keyboard.isKeyDown(Keyboard.KEY_S)) {
+                y += .1f;
+            } else if (Keyboard.isKeyDown(Keyboard.KEY_W)) {
+                y -= .1f;
             }
-            if (Keyboard.isKeyDown(Keyboard.KEY_RIGHT)) {
-                x += .001f;
-            } else if (Keyboard.isKeyDown(Keyboard.KEY_LEFT)){
-                x -= .001f;
+            if (Keyboard.isKeyDown(Keyboard.KEY_A)) {
+                x += .1f;
+            } else if (Keyboard.isKeyDown(Keyboard.KEY_D)){
+                x -= .1f;
             }
-            if (Keyboard.isKeyDown(Keyboard.KEY_W)) {
-                z += .001f;
-            } else if (Keyboard.isKeyDown(Keyboard.KEY_S)){
-                z -= .001f;
+            if (Keyboard.isKeyDown(Keyboard.KEY_Q)) {
+                z += .1f;
+            } else if (Keyboard.isKeyDown(Keyboard.KEY_E)){
+                z -= .1f;
             }
             
             //Mouse
@@ -116,7 +116,9 @@ public class GrapherDisplay {
 //        BezierCurve.draw();
         surface.draw();
         
+        glFlush();
         Display.update();
+        Display.sync(60);
     }
     
     private void drawCube() {
